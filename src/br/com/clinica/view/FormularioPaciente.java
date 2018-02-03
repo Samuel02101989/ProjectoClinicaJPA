@@ -1,3 +1,12 @@
+/******************************************
+ * PROJETO GERENCIAMENTO CLINICO
+ * DESENVOLVEDOR: SAMUEL OLIVEIRA
+ * DATA: MAIO/2017
+ * TESTE COM TECNOLOGIAS JPA
+ ******************************************/
+
+
+
 package br.com.clinica.view;
 
 import java.awt.Color;
