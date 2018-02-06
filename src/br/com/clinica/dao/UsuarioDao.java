@@ -8,7 +8,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
 
-import br.com.clinica.model.Medico;
+import br.com.clinica.model.Paciente;
 import br.com.clinica.model.Usuario;
 
 public class UsuarioDao {
@@ -36,12 +36,34 @@ public class UsuarioDao {
 
 		return entityManager;
 	}
-	
-// METODO DE PESQUISA DE USUARIO
-	
+	// Metodo de salvar e atualizar
+		public Usuario salvar(Usuario usuario) throws Exception {
+			EntityManager em = getEntityManager();
+			try {
+				em.getTransaction().begin();
+				if (usuario.getIdUsuario() == null) {
+					em.persist(usuario); // executar insert
+				} else {
+					if (!em.contains(usuario)) {
+						if (em.find(Usuario.class, usuario.getIdUsuario()) == null) {
+							throw new Exception("Erro ao atualizar");
+						}
+					}
+					usuario = em.merge(usuario); // executar update
+				}
+				em.getTransaction().commit();
+			} finally {
+				em.close();
+			}
+			return usuario;
+
+		}
+
+	// METODO DE PESQUISA DE USUARIO
+
 	public Usuario getByCpf(final String cpfUsuario) {
 		Usuario usuario = new Usuario();
-		
+
 		try {
 			if (cpfUsuario != null && !cpfUsuario.isEmpty()) {
 				String jpql = "select m from Usuario u where m.cpfUsuario = :cpfUsuario";
@@ -49,7 +71,7 @@ public class UsuarioDao {
 				query.setParameter("cpfUsuario", cpfUsuario);
 				@SuppressWarnings("unchecked")
 				List<Usuario> usuarioResutl = query.getResultList();
-				usuario = usuarioResutl.get(0);	
+				usuario = usuarioResutl.get(0);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -154,7 +176,5 @@ public class UsuarioDao {
 			entityManager.getTransaction().rollback();
 		}
 	}
-
-
 
 }

@@ -38,6 +38,29 @@ public class MedicoDao {
 		return entityManager;
 	}
 
+	// Metodo de salvar e atualizar
+	public Medico salvar(Medico medico) throws Exception {
+		EntityManager em = getEntityManager();
+		try {
+			em.getTransaction().begin();
+			if (medico.getIdMedico() == null) {
+				em.persist(medico); // executar insert
+			} else {
+				if (!em.contains(medico)) {
+					if (em.find(Medico.class, medico.getIdMedico()) == null) {
+						throw new Exception("Erro ao atualizar");
+					}
+				}
+				medico = em.merge(medico); // executar update
+			}
+			em.getTransaction().commit();
+		} finally {
+			em.close();
+		}
+		return medico;
+
+	}
+
 	// find() chamando o EntityManager passando o tipo de classe o id que deve
 	// ser buscado, ja traz um objeto medico
 	public Medico getByCrm(final String crm) {

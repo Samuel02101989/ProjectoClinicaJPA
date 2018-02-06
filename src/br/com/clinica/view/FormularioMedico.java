@@ -10,6 +10,8 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -30,8 +32,6 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import br.com.clinica.dao.MedicoDao;
 import br.com.clinica.model.Medico;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 public class FormularioMedico extends JFrame {
 
@@ -124,7 +124,7 @@ public class FormularioMedico extends JFrame {
 
 						JOptionPane.showMessageDialog(null, "*Preencha todos os dados Obrigatorios!!");
 					} else {
-						MedicoDao.getInstance().persist(medico);
+						MedicoDao.getInstance().salvar(medico);
 						JOptionPane.showMessageDialog(null, "Salvo com sucesso");
 
 						cleanFieldsEditableF();

@@ -273,16 +273,12 @@ public class FormularioAgenda extends JFrame {
 		JButton btnagendar = new JButton("");
 		btnagendar.setBackground(new Color(240, 248, 255));
 		btnagendar.setToolTipText("Save/Continue");
-		btnagendar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-			}
-		});
 		btnagendar.setIcon(new ImageIcon(FormularioAgenda.class.getResource("/br/com/clinica/image/next.png")));
 		btnagendar.setBounds(600, 50, 60, 40);
 		panelpaciente.add(btnagendar);
 
 		JButton btncancelar = new JButton("");
+		btncancelar.setEnabled(false);
 		btncancelar.setToolTipText("Update");
 		btncancelar.setBackground(new Color(240, 248, 255));
 		btncancelar.setIcon(new ImageIcon(FormularioAgenda.class.getResource("/br/com/clinica/image/uptade.png")));
@@ -292,24 +288,6 @@ public class FormularioAgenda extends JFrame {
 		JLabel lblNewLabel = new JLabel("*Campos Obrigatorios");
 		lblNewLabel.setBounds(284, 11, 148, 14);
 		panelpaciente.add(lblNewLabel);
-
-		JButton btnRemovePaciente = new JButton("remove");
-		btnRemovePaciente.setBackground(new Color(240, 248, 255));
-		btnRemovePaciente.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				Paciente p = new Paciente();
-				PacienteDao dao = new PacienteDao();
-
-				dao.remove(Long.parseLong(txtIdPaciente.getText()));
-
-				cleanFields();
-
-			}
-		});
-
-		btnRemovePaciente.setBounds(571, 203, 89, 23);
-		panelpaciente.add(btnRemovePaciente);
 
 		JLabel lblId = new JLabel("Id:");
 		lblId.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -995,10 +973,6 @@ public class FormularioAgenda extends JFrame {
 		lblPrint.setBounds(663, 371, 58, 47);
 		painelinfor.add(lblPrint);
 
-		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBackground(SystemColor.activeCaptionText);
-		tabbedPane.addTab("New tab", null, desktopPane, null);
-
 		ImageIcon icone = new ImageIcon(this.getClass().getResource("/br/com/clinica/image/useruser.jpg"));
 		Image img = icone.getImage();
 		JDesktopPane deskfundoAgenda = new JDesktopPane() {
@@ -1094,5 +1068,4 @@ public class FormularioAgenda extends JFrame {
 		agenda.setCampoAlgumDoenca(txtAlgumDoenca.getText());
 
 	}
-
 }

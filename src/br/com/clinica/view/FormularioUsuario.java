@@ -198,7 +198,7 @@ public class FormularioUsuario extends JFrame {
 						JOptionPane.showMessageDialog(null, "*Preencha todos os dados Obrigatorios!!");
 
 					} else {
-						UsuarioDao.getInstance().persist(usuario);
+						UsuarioDao.getInstance().salvar(usuario);
 						JOptionPane.showMessageDialog(null, "Salvo com sucesso");
 
 						// limpando campos

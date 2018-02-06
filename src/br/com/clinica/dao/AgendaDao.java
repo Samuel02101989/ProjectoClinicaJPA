@@ -38,6 +38,29 @@ public class AgendaDao {
 		return entityManager;
 	}
 
+	// Metodo de salvar e atualizar, nao utilizado no escopo do software
+	public FichaMedica atualizar(FichaMedica fichamedica) throws Exception {
+		EntityManager em = getEntityManager();
+		try {
+			em.getTransaction().begin();
+			if (fichamedica.getIdAgenda() == null) {
+				em.persist(fichamedica); // executar insert
+			} else {
+				if (!em.contains(fichamedica)) {
+					if (em.find(FichaMedica.class, fichamedica.getIdAgenda()) == null) {
+						throw new Exception("Erro ao atualizar");
+					}
+				}
+				fichamedica = em.merge(fichamedica); // executar update
+			}
+			em.getTransaction().commit();
+		} finally {
+			em.close();
+		}
+		return fichamedica;
+
+	}
+
 	// find() chamando o EntityManager passando o tipo de classe o id que deve
 	// ser buscado, ja traz um objeto agenda
 	public FichaMedica getByidAgenda(final Long idAgenda) {

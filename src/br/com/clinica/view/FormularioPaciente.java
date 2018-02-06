@@ -221,7 +221,7 @@ public class FormularioPaciente extends JFrame {
 						JOptionPane.showMessageDialog(null, "*Preencha todos os dados Obrigatorios!!");
 
 					} else {
-						PacienteDao.getInstance().persist(paciente);
+						PacienteDao.getInstance().salvar(paciente);
 						JOptionPane.showMessageDialog(null, "Salvo com sucesso");
 
 						cleansFields();
