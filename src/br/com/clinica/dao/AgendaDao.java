@@ -38,26 +38,26 @@ public class AgendaDao {
 		return entityManager;
 	}
 
-	// Metodo de salvar e atualizar, nao utilizado no escopo do software
-	public FichaMedica atualizar(FichaMedica fichamedica) throws Exception {
+	// Metodo de salvar e atualizar
+	public FichaMedica salvar(FichaMedica agenda) throws Exception {
 		EntityManager em = getEntityManager();
 		try {
 			em.getTransaction().begin();
-			if (fichamedica.getIdAgenda() == null) {
-				em.persist(fichamedica); // executar insert
+			if (agenda.getIdAgenda() == null) {
+				em.persist(agenda); // executar insert
 			} else {
-				if (!em.contains(fichamedica)) {
-					if (em.find(FichaMedica.class, fichamedica.getIdAgenda()) == null) {
+				if (!em.contains(agenda)) {
+					if (em.find(FichaMedica.class, agenda.getIdAgenda()) == null) {
 						throw new Exception("Erro ao atualizar");
 					}
 				}
-				fichamedica = em.merge(fichamedica); // executar update
+				agenda = em.merge(agenda); // executar update
 			}
 			em.getTransaction().commit();
 		} finally {
 			em.close();
 		}
-		return fichamedica;
+		return agenda;
 
 	}
 

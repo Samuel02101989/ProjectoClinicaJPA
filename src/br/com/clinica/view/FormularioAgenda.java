@@ -123,10 +123,10 @@ public class FormularioAgenda extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setForeground(Color.BLACK);
-		tabbedPane.setBounds(10, 23, 773, 457);
-		contentPane.add(tabbedPane);
+		JTabbedPane abas = new JTabbedPane(JTabbedPane.TOP);
+		abas.setForeground(Color.BLACK);
+		abas.setBounds(10, 23, 773, 457);
+		contentPane.add(abas);
 
 		JPanel panelpaciente = new JPanel() {
 
@@ -138,7 +138,7 @@ public class FormularioAgenda extends JFrame {
 		};
 		panelpaciente.setBackground(Color.WHITE);
 		panelpaciente.setForeground(new Color(0, 0, 0));
-		tabbedPane.addTab("1 - Paciente", null, panelpaciente, null);
+		abas.addTab("1 - Paciente", null, panelpaciente, null);
 		panelpaciente.setLayout(null);
 
 		JLabel lblnomeficha = new JLabel("*Nome do Paciente:");
@@ -271,8 +271,13 @@ public class FormularioAgenda extends JFrame {
 		txtTelAgenda.setColumns(10);
 
 		JButton btnagendar = new JButton("");
+		btnagendar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				abas.setSelectedIndex(1);
+			}
+		});
 		btnagendar.setBackground(new Color(240, 248, 255));
-		btnagendar.setToolTipText("Save/Continue");
+		btnagendar.setToolTipText("Avan\u00E7ar");
 		btnagendar.setIcon(new ImageIcon(FormularioAgenda.class.getResource("/br/com/clinica/image/next.png")));
 		btnagendar.setBounds(600, 50, 60, 40);
 		panelpaciente.add(btnagendar);
@@ -313,7 +318,7 @@ public class FormularioAgenda extends JFrame {
 
 		JPanel painelmedico = new JPanel();
 		painelmedico.setBackground(Color.WHITE);
-		tabbedPane.addTab("2 - Medico", null, painelmedico, null);
+		abas.addTab("2 - Medico", null, painelmedico, null);
 		painelmedico.setLayout(null);
 
 		JLabel lblcrmagenda = new JLabel("CRM:");
@@ -378,13 +383,15 @@ public class FormularioAgenda extends JFrame {
 		txtPrecoMedico.setColumns(10);
 
 		JButton btnnextmedico = new JButton("");
+		btnnextmedico.setToolTipText("Avan\u00E7ar");
 		btnnextmedico.setBackground(new Color(240, 248, 255));
 		btnnextmedico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				abas.setSelectedIndex(2);
 			}
 		});
 		btnnextmedico.setIcon(new ImageIcon(FormularioAgenda.class.getResource("/br/com/clinica/image/next.png")));
-		btnnextmedico.setBounds(600, 50, 60, 40);
+		btnnextmedico.setBounds(676, 45, 60, 40);
 		painelmedico.add(btnnextmedico);
 
 		JLabel lblNewLabel_2 = new JLabel("CPF:");
@@ -459,6 +466,18 @@ public class FormularioAgenda extends JFrame {
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNewLabel_7.setBounds(10, 71, 46, 14);
 		painelmedico.add(lblNewLabel_7);
+		
+		JButton button = new JButton("");
+		button.setIcon(new ImageIcon(FormularioAgenda.class.getResource("/br/com/clinica/image/Back.png")));
+		button.setToolTipText("Voltar");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				abas.setSelectedIndex(0);
+			}
+		});
+		button.setBackground(new Color(240, 248, 255));
+		button.setBounds(593, 45, 60, 40);
+		painelmedico.add(button);
 
 		// Controle dos RadioButton
 
@@ -466,7 +485,7 @@ public class FormularioAgenda extends JFrame {
 		ButtonGroup g1 = new ButtonGroup();
 
 		painelinfor.setBackground(Color.WHITE);
-		tabbedPane.addTab("3 - Historico Clinico", null, painelinfor, null);
+		abas.addTab("3 - Historico Clinico", null, painelinfor, null);
 		painelinfor.setLayout(null);
 
 		JLabel lbltratmedico = new JLabel("Tratamento medico atual:");
@@ -664,7 +683,7 @@ public class FormularioAgenda extends JFrame {
 					FichaMedica agenda = new FichaMedica();
 					// paciente.setPlanosaude((String)cboplanosaude.getSelectedItem());
 					saveConsultaDba(agenda);
-					AgendaDao.getInstance().merge(agenda);
+					AgendaDao.getInstance().salvar(agenda);
 
 					JOptionPane.showMessageDialog(null, "Consulta Agendada com Sucesso!!");
 
@@ -970,8 +989,20 @@ public class FormularioAgenda extends JFrame {
 			}
 		});
 		lblPrint.setIcon(new ImageIcon(FormularioAgenda.class.getResource("/br/com/clinica/image/Print.png")));
-		lblPrint.setBounds(663, 371, 58, 47);
+		lblPrint.setBounds(690, 371, 58, 47);
 		painelinfor.add(lblPrint);
+		
+		JButton button_1 = new JButton("");
+		button_1.setIcon(new ImageIcon(FormularioAgenda.class.getResource("/br/com/clinica/image/Back.png")));
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				abas.setSelectedIndex(1);
+			}
+		});
+		button_1.setToolTipText("Voltar");
+		button_1.setBackground(new Color(240, 248, 255));
+		button_1.setBounds(620, 371, 60, 47);
+		painelinfor.add(button_1);
 
 		ImageIcon icone = new ImageIcon(this.getClass().getResource("/br/com/clinica/image/useruser.jpg"));
 		Image img = icone.getImage();
