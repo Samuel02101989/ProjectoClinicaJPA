@@ -8,6 +8,8 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
 
+import org.hibernate.resource.transaction.spi.TransactionCoordinatorOwner;
+
 import br.com.clinica.model.Paciente;
 
 public class PacienteDao {
@@ -167,6 +169,29 @@ public class PacienteDao {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Erro ");
 		}
+
+	}
+
+	// Metodo de salvar e atualizar
+	public Paciente salvar(Paciente paciente) throws Exception {
+		EntityManager em = getEntityManager();
+		try {
+			em.getTransaction().begin();
+			if (paciente.getIdpaciente() == null) {
+				em.persist(paciente); // executar insert
+			} else {
+				if(!em.contains(paciente)){
+					if(em.find(Paciente.class, paciente.getIdpaciente()) == null){
+						throw new Exception("Erro ao atualizar");
+					}
+				}
+				paciente = em.merge(paciente); // executar update 
+			}
+			em.getTransaction().commit();
+		} finally {
+			em.close();
+		}
+		return paciente;
 
 	}
 	
