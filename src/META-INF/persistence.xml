@@ -8,7 +8,7 @@ version="2.0">
 <!-- Implementação do JPA, no nosso caso Hibernate -->
 <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 	<!-- Aqui são listadas todas as entidades -->
-	<class>br.com.financas.modelo</class>
+	<class>br.com.clinica.model</class>
 
 <properties><!-- Propriedades JDBC -->
 <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
