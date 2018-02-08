@@ -40,7 +40,7 @@ public class Relatorio {
 		if (confirm == JOptionPane.YES_OPTION) {
 			try {
 				JasperPrint print = JasperFillManager
-						.fillReport("D:/nova/faculdade 4°/ProjectoClinica/ClinicaRel/Medicos.jasper", null, conexao);
+						.fillReport("br/com/clinica/relatorios/Medicos.jasper", null, conexao);
 				JasperViewer.viewReport(print, false);
 
 			} catch (Exception e) {

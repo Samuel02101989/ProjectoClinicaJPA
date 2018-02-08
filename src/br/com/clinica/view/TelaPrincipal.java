@@ -21,7 +21,6 @@ import javax.swing.JMenuItem;
 
 import com.toedter.calendar.JCalendar;
 
-import br.com.clinica.jasperClass.Relatorios;
 import br.com.clinica.relatoriosClass.Relatorio;
 
 public class TelaPrincipal extends JFrame {
